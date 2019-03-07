@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"utils/log"
 )
 
 var props map[string]string
@@ -22,10 +21,15 @@ func LoadFile(fileName string) {
 	}
 
 	f, err := os.OpenFile(fileName, os.O_RDONLY, 0)
-	defer f.Close()
+	defer func() {
+		err = f.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}()
 
 	if err != nil {
-		log.Error("Error reading configuration file" + fileName)
+		fmt.Println("Error reading configuration file" + fileName)
 		return
 	}
 
