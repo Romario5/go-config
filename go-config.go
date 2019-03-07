@@ -15,7 +15,8 @@ var props map[string]string
 // - comments must begin from hash ($).
 // - each property separated from value with equals symbol (=)
 // - property name and value can contain spaces at boundaries (spaces will be trimmed)
-func LoadFile(fileName string) {
+// Returns number of read properties.
+func LoadFile(fileName string) int64 {
 	if props == nil {
 		props = make(map[string]string)
 	}
@@ -29,8 +30,8 @@ func LoadFile(fileName string) {
 	}()
 
 	if err != nil {
-		fmt.Println("Error reading configuration file" + fileName)
-		return
+		fmt.Println("Error reading file " + fileName + ":", err)
+		return 0
 	}
 
 	scanner := bufio.NewScanner(f)
@@ -55,7 +56,7 @@ func LoadFile(fileName string) {
 		line = line[:0]
 	}
 
-	fmt.Println("Configuration loaded from", fileName, "("+strconv.FormatInt(propsLoaded, 10)+" properties)")
+	return propsLoaded
 }
 
 // Parses configuration line.
