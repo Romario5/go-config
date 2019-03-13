@@ -80,7 +80,7 @@ func parseProp(line []byte) (key, value string) {
 
 func GetString(param string, defaultValue string) string {
 	if props == nil {
-		return ""
+		return defaultValue
 	}
 	val, ok := props[param]
 	if ok {
@@ -91,7 +91,7 @@ func GetString(param string, defaultValue string) string {
 
 func GetUint64(param string, defaultValue uint64) uint64 {
 	if props == nil {
-		return 0
+		return defaultValue
 	}
 	val, ok := props[param]
 	if ok {
@@ -101,13 +101,121 @@ func GetUint64(param string, defaultValue uint64) uint64 {
 	return defaultValue
 }
 
-func GetBool(param string, defaultValue bool) bool {
+func GetInt64(param string, defaultValue int64) int64 {
 	if props == nil {
-		return false
+		return defaultValue
 	}
 	val, ok := props[param]
 	if ok {
-		return val == "True" || val == "true"
+		i, _ := strconv.ParseInt(val, 10, 64)
+		return i
+	}
+	return defaultValue
+}
+
+func GetUint32(param string, defaultValue uint32) uint32 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseUint(val, 10, 32)
+		return uint32(i)
+	}
+	return defaultValue
+}
+
+func GetInt32(param string, defaultValue int32) int32 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseInt(val, 10, 32)
+		return int32(i)
+	}
+	return defaultValue
+}
+
+func GetUint16(param string, defaultValue uint16) uint16 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseUint(val, 10, 16)
+		return uint16(i)
+	}
+	return defaultValue
+}
+
+func GetInt16(param string, defaultValue int16) int16 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseInt(val, 10, 16)
+		return int16(i)
+	}
+	return defaultValue
+}
+
+func GetUint8(param string, defaultValue uint8) uint8 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseUint(val, 10, 8)
+		return uint8(i)
+	}
+	return defaultValue
+}
+
+func GetInt8(param string, defaultValue int8) int8 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseInt(val, 10, 8)
+		return int8(i)
+	}
+	return defaultValue
+}
+
+func GetFloat32(param string, defaultValue float32) float32 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseFloat(val, 32)
+		return float32(i)
+	}
+	return defaultValue
+}
+
+func GetFloat64(param string, defaultValue float64) float64 {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		i, _ := strconv.ParseFloat(val, 64)
+		return i
+	}
+	return defaultValue
+}
+
+func GetBool(param string, defaultValue bool) bool {
+	if props == nil {
+		return defaultValue
+	}
+	val, ok := props[param]
+	if ok {
+		return val == "True" || val == "true" || val == "1" || val == "yes" || val == "Yes"
 	}
 	return false
 }
